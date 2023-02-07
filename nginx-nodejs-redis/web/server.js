@@ -19,6 +19,31 @@ app.get('/', function(req, res) {
     });
 });
 
+app.get('/v1/menu/menu-web-logged-out-config', function(req, res) {
+    redisClient.get('numVisits', function(err, numVisits) {
+        numVisitsToDisplay = parseInt(numVisits) + 1;
+        if (isNaN(numVisitsToDisplay)) {
+            numVisitsToDisplay = 1;
+        }
+       res.send(os.hostname() +': Number of visits is: ' + numVisitsToDisplay);
+        numVisits++;
+        redisClient.set('numVisits', numVisits);
+    });
+});
+
+app.get('/v1/screen/home-web-screen-config', function(req, res) {
+    redisClient.get('numVisits', function(err, numVisits) {
+        numVisitsToDisplay = parseInt(numVisits) + 1;
+        if (isNaN(numVisitsToDisplay)) {
+            numVisitsToDisplay = 1;
+        }
+       res.send(os.hostname() +': Number of visits is: ' + numVisitsToDisplay);
+        numVisits++;
+        redisClient.set('numVisits', numVisits);
+    });
+});
+
+
 app.listen(5000, function() {
     console.log('Web application is listening on port 5000');
 });
